@@ -13,6 +13,11 @@ on:
         required: true
         default: '.'
         type: string
+      post_pr_comment:
+        description: 'Whether to post the plan output as a comment on the PR'
+        required: false
+        default: false
+        type: boolean
     secrets:
       ARM_CLIENT_ID:
         required: false
@@ -53,8 +58,6 @@ jobs:
       contents: read
       pull-requests: write
       id-token: write
-    outputs:
-      plan_file: ${{ steps.plan.outputs.plan_file }}
     defaults:
       run:
         shell: bash
@@ -131,7 +134,26 @@ jobs:
     - name: Terraform Plan
       id: plan
       run: |
-        terraform plan -input=false \
-        -out=tfplan && \
+        terraform plan -input=false -out=tfplan && \
         echo "Terraform plan created successfully." && \
-        echo "::setOutput name=plan_file::$(cat tfplan)"
+        terraform show -no-color tfplan > plan.txt && \
+        echo "plan_file<<EOF" >> $GITHUB_OUTPUT
+        echo "$(cat plan.txt)" >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
+
+    - name: Publish Plan as Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: terraform-plan
+        path: tfplan
+
+    - name: Publish Plan as PR Comment
+      uses: mshick/add-pr-comment@v2
+      if: ${{ inputs.post_pr_comment }}
+      with:
+        message: |
+          ## Terraform Plan
+          ### Terraform Plan Output
+          ```plaintext
+          ${{ steps.plan.outputs.plan_file }}
+          ```
