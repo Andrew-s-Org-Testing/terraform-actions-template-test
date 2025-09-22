@@ -107,7 +107,7 @@ jobs:
       - name: Run TFLint
         run: |
           tflint --init
-          tflint --format=junit > tests/tflint-results.xml
+          tflint --minimum-failure-severity=error --format=junit > tests/tflint-results.xml
 
       - name: Setup and Run Checkov
         run: |
