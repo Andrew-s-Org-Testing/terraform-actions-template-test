@@ -193,7 +193,7 @@ jobs:
   unit_tests:
     name: Unit Tests
     runs-on: ubuntu-latest
-    if: ${{ inputs.type == 'unit' }}
+    if: ${{ inputs.test_level == 'unit' }}
     needs:
       - determine_provider
       - static_analysis
