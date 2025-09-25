@@ -245,6 +245,7 @@ jobs:
 
       - name: Run Terraform Native Tests
         run: |
+          terraform init
           terraform test -junit-xml=tests/terraform-test-results.xml
 
       - name: Upload Unit Test Results
