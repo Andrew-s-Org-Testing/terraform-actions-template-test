@@ -312,6 +312,8 @@ jobs:
       - name: Run Terraform Native Tests
         run: |
           terraform test -junit-xml=tests/terraform-test-results.xml
+        env:
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 
       - name: Upload Unit Test Results
         uses: actions/upload-artifact@v4
