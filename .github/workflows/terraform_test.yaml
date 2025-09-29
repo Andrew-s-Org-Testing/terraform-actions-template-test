@@ -237,6 +237,7 @@ jobs:
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
         run: |
           terraform init \
+          -backend-config="use_azuread_auth=true" \
           -backend-config="resource_group_name=${{ secrets.AZ_RESOURCE_GROUP_NAME }}" \
           -backend-config="storage_account_name=${{ secrets.AZ_STATE_STORE }}" \
           -backend-config="container_name=${{ secrets.AZ_STATE_CONTAINER }}" \
