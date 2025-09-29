@@ -49,7 +49,7 @@ jobs:
       ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
   terraform:
     name: 'Terraform Apply'
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Linux, x64]
     needs: 
       - determine_provider
     permissions:

@@ -61,7 +61,7 @@ jobs:
 
   static_analysis:
     name: 'Terraform Static Analysis'
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Linux, x64]
     needs: 
       - determine_provider
     permissions:
@@ -156,7 +156,7 @@ jobs:
   # Stage 3: Security and Compliance
   security_compliance:
     name: Security & Compliance
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Linux, x64]
     defaults:
       run:
         shell: bash
@@ -194,7 +194,7 @@ jobs:
 
   unit_tests:
     name: Unit Tests
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Linux, x64]
     if: ${{ inputs.test_level == 'unit' }}
     needs:
       - determine_provider
@@ -320,7 +320,7 @@ jobs:
 
   test_results:
     name: Test Results & Reporting
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Linux, x64]
     needs:
       - static_analysis
       - security_compliance
