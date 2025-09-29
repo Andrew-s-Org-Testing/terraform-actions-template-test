@@ -88,6 +88,11 @@ jobs:
         with:
           node-version: 22
 
+      - name: Setup Python
+        uses: actions/setup-python@6
+        with:
+          python-version: '3.13'
+
       - name: Make Test Directory
         run: mkdir -p tests
 
