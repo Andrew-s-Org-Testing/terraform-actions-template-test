@@ -183,6 +183,16 @@ jobs:
         with:
           terraform_version: ${{ inputs.terraform_version }}
 
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - name: Setup Python
+        uses: actions/setup-python@6
+        with:
+          python-version: '3.13'
+
       - name: Create Test Directory
         run: mkdir -p tests
 
@@ -225,6 +235,16 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: ${{ inputs.terraform_version }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - name: Setup Python
+        uses: actions/setup-python@6
+        with:
+          python-version: '3.13'
 
       - name: Create Test Directory
         run: mkdir -p tests
