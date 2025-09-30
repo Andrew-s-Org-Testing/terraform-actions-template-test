@@ -23,6 +23,7 @@ on:
         value: ${{ jobs.provider.outputs.azure}}
 jobs:
   provider:
+    environment: ${{ inputs.environment }}
     env:
       GCP: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_EMAIL }}
       AWS: ${{ secrets.AWS_IAM_ROLE_ARN }}
