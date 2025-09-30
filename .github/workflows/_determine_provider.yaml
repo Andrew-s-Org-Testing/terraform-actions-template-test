@@ -2,10 +2,11 @@ name: _determine_provider
 
 on:
   workflow_call:
-    environment:
-      description: 'GitHub Environment to use'
-      required: true
-      type: string
+    inputs:
+      environment:
+        description: 'GitHub Environment to use'
+        required: true
+        type: string
     secrets:
       AWS_IAM_ROLE_ARN:
         required: false
