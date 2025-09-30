@@ -332,7 +332,6 @@ jobs:
           path: tests/terraform-test-results.xml
 
   integration_tests:
-    environment: ${{ inputs.environment }}
     name: Integration Tests
     needs:
       - static_analysis
@@ -354,11 +353,11 @@ jobs:
       GOOGLE_WORKLOAD_IDENTITY_PROVIDER: ${{ secrets.GOOGLE_WORKLOAD_IDENTITY_PROVIDER }}
       GOOGLE_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_EMAIL }}
       GOOGLE_STATE_BUCKET: ${{ secrets.GOOGLE_STATE_BUCKET }}
-
     with:
       terraform_version: ${{ inputs.terraform_version }}
       working_directory: ${{ inputs.working_directory }}
       post_pr_comment: true
+      environment: ${{ inputs.environment }}
 
   test_results:
     name: Test Results & Reporting
