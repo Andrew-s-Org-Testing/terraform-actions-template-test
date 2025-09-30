@@ -3,6 +3,10 @@ name: terraform_destroy
 on:
   workflow_call:
     inputs:
+      environment:
+        description: 'GitHub Environment to use'
+        required: true
+        type: string
       terraform_version:
         description: 'Terraform version to use'
         required: true
@@ -46,7 +50,10 @@ jobs:
       AWS_IAM_ROLE_ARN: ${{ secrets.AWS_IAM_ROLE_ARN }}
       GOOGLE_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_EMAIL }}
       ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+    with:
+      environment: ${{ inputs.environment }}
   terraform:
+    environment: ${{ inputs.environment }}
     name: 'Terraform Destroy'
     runs-on: [self-hosted, Linux, x64]
     needs: 
