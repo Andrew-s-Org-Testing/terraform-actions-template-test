@@ -319,7 +319,7 @@ jobs:
 
       - name: Run Terraform Native Tests
         run: |
-          terraform test -junit-xml=tests/terraform-test-results.xml
+          terraform test -verbose -junit-xml=tests/terraform-test-results.xml
         env:
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 
