@@ -26,6 +26,16 @@ on:
         required: true
         default: '.'
         type: string
+      tf_vars_artifact:
+        description: 'Name of the tfvars artifact to download and use'
+        required: false
+        default: ''
+        type: string
+      tf_vars_filename:
+        description: 'Name of the tfvars filename to use in terraform commands'
+        required: false
+        default: ''
+        type: string
     secrets:
       INFRACOST_API_KEY:
         required: false
@@ -98,6 +108,15 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: '3.13'
+
+
+      - name: Download tfvars Artifact
+        if: ${{ inputs.tf_vars_artifact != '' }}
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.tf_vars_artifact }}
+          path: .
+
 
       - name: Make Test Directory
         run: mkdir -p tests
@@ -357,6 +376,9 @@ jobs:
       working_directory: ${{ inputs.working_directory }}
       post_pr_comment: true
       environment: ${{ inputs.environment }}
+      tf_vars_artifact: ${{ inputs.tf_vars_artifact }}
+      tf_vars_filename: ${{ inputs.tf_vars_filename }}
+
 
   test_results:
     name: Test Results & Reporting
