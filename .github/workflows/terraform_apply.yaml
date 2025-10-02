@@ -94,6 +94,11 @@ jobs:
       with:
         terraform_version: ${{ inputs.terraform_version }}
 
+    - name: Setup Node
+      uses: actions/setup-node@v5
+      with:
+        node-version: 22
+
     - name: Authenticate Azure
       if: needs.determine_provider.outputs.azure == 'true'
       uses: azure/login@v2
