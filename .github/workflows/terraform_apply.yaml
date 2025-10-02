@@ -163,4 +163,4 @@ jobs:
     - name: Terraform Apply
       if: github.base_ref == 'main'
       run: |
-        terraform apply -auto-approve -var-file=${{ tf_vars_filename }} -input=false terraform-plan/tfplan
+        terraform apply -auto-approve -var-file=${{ inputs.tf_vars_filename }} -input=false terraform-plan/tfplan
