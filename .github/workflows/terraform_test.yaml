@@ -107,7 +107,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v6
         with:
-          python-version: '3.13'
+          python-version: '3.9.0'
 
 
       - name: Download tfvars Artifact
@@ -217,7 +217,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v6
         with:
-          python-version: '3.13'
+          python-version: '3.9.0'
 
       - name: Create Test Directory
         run: mkdir -p tests
@@ -246,6 +246,7 @@ jobs:
     needs:
       - determine_provider
       - static_analysis
+      - security_compliance
     permissions:
       contents: read
       pull-requests: write
@@ -271,7 +272,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v6
         with:
-          python-version: '3.13'
+          python-version: '3.9.0'
 
       - name: Create Test Directory
         run: mkdir -p tests
