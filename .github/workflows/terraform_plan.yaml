@@ -27,6 +27,11 @@ on:
         required: false
         default: ''
         type: string
+      tf_statefile_name:
+        description: 'Name of the statefile to store in the backend'
+        required: false
+        default: 'terraform.tfstate'
+        type: string
       post_pr_comment:
         description: 'Whether to post the plan output as a comment on the PR'
         required: false
@@ -103,7 +108,7 @@ jobs:
         client-id: ${{ secrets.ARM_CLIENT_ID }}
         tenant-id: ${{ secrets.ARM_TENANT_ID }}
         subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-        enable-AzPsession: true
+        enable-AzPSSession: true
 
     - name: Terraform Init Azure
       if: needs.determine_provider.outputs.azure == 'true'
@@ -118,7 +123,8 @@ jobs:
         -backend-config="resource_group_name=${{ secrets.AZ_RESOURCE_GROUP_NAME }}" \
         -backend-config="storage_account_name=${{ secrets.AZ_STATE_STORE }}" \
         -backend-config="container_name=${{ secrets.AZ_STATE_CONTAINER }}" \
-        -backend-config="key=terraform.tfstate" \
+        -backend-config="key=${{ inputs.tf_statefile_name }}" \
+        -reconfigure
 
 
     - name: Authenticate AWS
@@ -135,8 +141,9 @@ jobs:
       run: |
         terraform init \
         -backend-config="bucket=${{ secrets.AWS_STATE_BUCKET }}" \
-        -backend-config="key=terraform.tfstate" \
+        -backend-config="key=${{ inputs.tf_statefile_name }}" \
         -backend-config="region=${{ secrets.AWS_STATE_REGION }}" \
+        -reconfigure
 
 
     - name: Authenticate GCP
@@ -153,6 +160,7 @@ jobs:
       run: |
         terraform init \
         -backend-config="bucket=${{ secrets.GOOGLE_STATE_BUCKET }}" \
+        -backend-config="key=${{ inputs.tf_statefile_name }}" \
         -backend-config="prefix=terraform/state" 
 
 
