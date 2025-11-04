@@ -38,6 +38,8 @@ on:
         default: false
         type: boolean
     secrets:
+      AVNETGIS_TF_GHE_APP_KEY:
+        required: true
       ARM_CLIENT_ID:
         required: false
       ARM_TENANT_ID:
@@ -72,12 +74,17 @@ jobs:
       ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
     with:
       environment: ${{ inputs.environment }}
+  authenticate_with_tf_github_app:
+    uses: ./.github/workflows/_authenticate_terraform_gh_app.yaml
+    secrets:
+      AVNETGIS_TF_GHE_APP_KEY: ${{ secrets.AVNETGIS_TF_GHE_APP_KEY }}
   terraform:
     environment: ${{ inputs.environment }}
     name: 'Terraform Plan'
     runs-on: [self-hosted, Linux, x64]
     needs: 
       - determine_provider
+      - authenticate_with_tf_github_app
     permissions:
       contents: read
       pull-requests: write
