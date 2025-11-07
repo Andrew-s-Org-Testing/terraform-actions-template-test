@@ -160,7 +160,7 @@ jobs:
           git config --global user.name '${{ steps.app-token.outputs.app-slug }}[bot]'
           git config --global user.email '${{ steps.get-user-id.outputs.user-id }}+${{ steps.app-token.outputs.app-slug }}[bot]@users.noreply.github.com'
           git config --global url."https://${{ steps.app-token.outputs.app-slug }}:${{ steps.app-token.outputs.token }}@github.com".instedOf https://github.com
-          git config --global u
+          git config --global url."https://:${{ steps.app-token.outputs.app-slug }}@github.com/".instedOf ssh://git@github.com
 
       - name: Terraform Validate
         run: |
