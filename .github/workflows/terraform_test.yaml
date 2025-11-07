@@ -143,29 +143,12 @@ jobs:
       # Will eventually update so that the workflow can make automatic code changes after formatting
       #
 
-      # TESTING FOR GITHUB APP AUTH
-      - name: Get Application Token
-        id: app-token
-        uses: actions/create-github-app-token@67018539274d69449ef7c02e8e71183d1719ab42
-        with:
-          app-id: ${{ vars.AVNETGIS_TF_GHE_APP_ID }} # Org level Variables
-          private-key: ${{ secrets.AVNETGIS_TF_GHE_APP_KEY }}
-          owner: AvnetGIS
-      - name: Get GitHub App User ID
-        id: get-user-id
-        run: echo "user-id=$(gh api "/users/${{ steps.app-token.outputs.app-slug }}[bot]" --jq .id)" >> "$GITHUB_OUTPUT"
-        env:
-          GH_TOKEN: ${{ steps.app-token.outputs.token }}
-      - run: |
-          git config --global user.name '${{ steps.app-token.outputs.app-slug }}[bot]'
-          git config --global url."https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/".instedOf "https://github.com/"
-          git config --global credential.helper ""
-          git config --global credential.'https://github.com'.helper ""
-
       - name: Terraform Validate
         run: |
           terraform init -backend=false
           terraform validate
+        env:
+          GH_TOKEN: ${{ needs.authenticate_with_tf_github_app.outputs.app-token }}
 
       - name: Setup TFLint
         uses: terraform-linters/setup-tflint@v4
