@@ -12,6 +12,9 @@ on:
 jobs:
   authenticate_to_app:
     runs-on: [self-hosted, Linux, x64]
+    outputs:
+      app-token: ${{ steps.app-token.outputs.token }}
+
     steps:
       - name: Get Application Token
         id: app-token
