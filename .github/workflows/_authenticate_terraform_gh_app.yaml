@@ -5,9 +5,9 @@ on:
     secrets:
       AVNETGIS_TF_GHE_APP_KEY:
         required: true
-      outputs:
-        app-token:
-          value: ${{ jobs.authenticate_to_app.outputs.app-token }}
+    outputs:
+      app-token:
+        value: ${{ jobs.authenticate_to_app.outputs.app-token }}
 
 jobs:
   authenticate_to_app:
