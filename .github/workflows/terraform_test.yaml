@@ -159,8 +159,8 @@ jobs:
       - run: |
           git config user.name '${{ steps.app-token.outputs.app-slug }}[bot]'
           git config user.email '${{ steps.get-user-id.outputs.user-id }}+${{ steps.app-token.outputs.app-slug }}[bot]@users.noreply.github.com'
-          git config url."https://${{ steps.app-token.outputs.app-slug }}:${{ steps.app-token.outputs.token }}@github.com".instedOf https://github.com/AvnetGIS
-          git config url."https://:${{ steps.app-token.outputs.app-slug }}@github.com/".instedOf ssh://git@github.com/AvnetGIS
+          git config url."https://${{ steps.app-token.outputs.app-slug }}:${{ steps.app-token.outputs.token }}@github.com/AvnetGIS".instedOf https://github.com/AvnetGIS
+          git config url."https://:${{ steps.app-token.outputs.app-slug }}@github.com/AvnetGIS/".instedOf ssh://git@github.com/AvnetGIS
 
       - name: Terraform Validate
         run: |
