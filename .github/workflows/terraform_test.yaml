@@ -150,6 +150,7 @@ jobs:
         with:
           app-id: ${{ vars.AVNETGIS_TF_GHE_APP_ID }} # Org level Variables
           private-key: ${{ secrets.AVNETGIS_TF_GHE_APP_KEY }}
+          skip-token-revoke: true
           owner: AvnetGIS
       - name: Get GitHub App User ID
         id: get-user-id
@@ -159,6 +160,9 @@ jobs:
       - run: |
           git config --global url."https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/".insteadOf https://github.com/
           git config --global url."https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/".insteadOf ssh://git@github.com/      
+          git config --global credential.helper ""
+          git config --global credential.'https://github.com'.helper ""
+
       - name: Terraform Validate
         run: |
           terraform init -backend=false
