@@ -161,8 +161,6 @@ jobs:
       - run: |
           git config --global url."https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/".insteadOf https://github.com/
           git config --global url."https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/".insteadOf ssh://git@github.com/      
-          git config --global credential.helper ""
-          git config --global credential.'https://github.com'.helper ""
 
       - name: Terraform Validate
         run: |
