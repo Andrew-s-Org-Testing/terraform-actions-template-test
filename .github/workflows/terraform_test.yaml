@@ -169,6 +169,7 @@ jobs:
           terraform validate
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }} #${{ needs.authenticate_with_tf_github_app.outputs.app-token }}
+          GITHUB_APP_PEM_FILE: ${{ secrets.AVNETGIS_TF_GHE_APP_KEY }}
 
       - name: Setup TFLint
         uses: terraform-linters/setup-tflint@v4
