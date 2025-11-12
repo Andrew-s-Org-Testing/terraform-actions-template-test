@@ -154,7 +154,7 @@ jobs:
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
       - run: |
-          git config --global url."https://${{ steps.checkout-token.outputs.token }}@github.com".insteadOf "https://github.com"
+        git config --global url."https://x-access-token:${{ steps.checkout-token.outputs.token }}@github.com".insteadOf "https://github.com"
           git config --global credential.helper ""
           git config --global credential.'https://github.com'.helper ""
 
