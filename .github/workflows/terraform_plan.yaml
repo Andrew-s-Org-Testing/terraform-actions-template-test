@@ -81,7 +81,7 @@ jobs:
   terraform:
     environment: ${{ inputs.environment }}
     name: 'Terraform Plan'
-    runs-on: [self-hosted, Linux, x64]
+    runs-on: ubuntu-latest
     needs: 
       - determine_provider
       - authenticate_with_tf_github_app
