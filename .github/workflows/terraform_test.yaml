@@ -150,7 +150,7 @@ jobs:
         with:
           app-id: ${{ vars.AVNETGIS_TF_GHE_APP_ID }} # Org level Variables
           private-key: ${{ secrets.AVNETGIS_TF_GHE_APP_KEY }}
-          owner: AvnetGIS
+          owner: Andrew-s-Org-Testing
         env:
           GITHUB_APP_PEM_FILE: ${{ secrets.AVNETGIS_TF_GHE_APP_KEY }}
       - name: Get GitHub App User ID

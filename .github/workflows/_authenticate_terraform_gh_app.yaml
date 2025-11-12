@@ -22,7 +22,7 @@ jobs:
         with:
           app-id: ${{ vars.AVNETGIS_TF_GHE_APP_ID }} # Org level Variables
           private-key: ${{ secrets.AVNETGIS_TF_GHE_APP_KEY }}
-          owner: AvnetGIS
+          owner: Andrew-s-Org-Testing
       - name: Get GitHub App User ID
         id: get-user-id
         run: echo "user-id=$(gh api "/users/${{ steps.app-token.outputs.app-slug }}[bot]" --jq .id)" >> "$GITHUB_OUTPUT"
