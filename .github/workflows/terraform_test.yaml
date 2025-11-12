@@ -159,8 +159,9 @@ jobs:
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
       - run: |
-          git config --global url."https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/".insteadOf https://github.com/
-          git config --global url."https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/".insteadOf ssh://git@github.com/      
+          git config --global url."https://actions:${{ steps.checkout-token.outputs.token }}@github.com".insteadOf https://github.com
+          git config --global url."https://actions:${{ steps.checkout-token.outputs.token }}@github.com/".insteadOf ssh://git@github.com/
+
 
       - name: Terraform Validate
         run: |
